@@ -12,7 +12,7 @@ from region_loss import RegionLoss
 batch_size=12
 
 # dataset
-dataset=KittiDataset(root='/home/ai/KITTI',set='train')
+dataset=KittiDataset(root='../input/kitti-3d-object-detection-dataset',set='train')
 data_loader = data.DataLoader(dataset, batch_size, shuffle=True)
 
 model = ComplexYOLO()
