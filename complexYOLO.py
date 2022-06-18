@@ -74,12 +74,14 @@ class ComplexYOLO(nn.Module):
         self.conv_18 = nn.Conv2d(in_channels=1024,out_channels=75,kernel_size=1,stride=1,padding=0)
 
         self.relu = nn.ReLU(inplace=True)
+      
+    def resblock(self,x):
+        x = self.pool_1(self.relu(self.bn_1(self.conv_1(x))))
+        x = self.relu(self.bn_2(self.conv_2(x)))
+        return x
 
     def forward(self,x):
-        x = self.relu(self.bn_1(self.conv_1(x)))
-        x = self.pool_1(x)
-        
-        x = self.relu(self.bn_2(self.conv_2(x)))
+        x = x + self.resblock(x)
         x = self.pool_2(x)
 
         x = self.relu(self.bn_3(self.conv_3(x)))
